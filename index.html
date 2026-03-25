@@ -1,76 +1,56 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>مساعد أساسيات التمريض</title>
-<style>
-body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
-.container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow:0 0 10px rgba(0,0,0,0.1);}
-input, button { padding: 10px; font-size:16px; width:100%; margin:5px 0; }
-.result { margin-top:20px; padding:15px; background:#e0f7fa; border-radius:8px; line-height:1.6;}
-h3{margin-bottom:5px;}
-.point{margin-bottom:10px;}
-.example{background:#fff9c4; padding:8px; border-radius:5px; margin:5px 0;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قاعدة المعرفة التمريضية | أساسيات التمريض</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>📚 قاعدة المعرفة التمريضية</h1>
+                <p>أساسيات التمريض - الفصل الأول | بحث ذكي في المحتوى الدراسي</p>
+            </div>
+        </header>
 
-<div class="container">
-<h2>مساعد أساسيات التمريض</h2>
-<input type="text" id="searchInput" placeholder="اكتب كلمة أو سؤال هنا...">
-<button onclick="searchTerm()">ابحث</button>
-<div class="result" id="result"></div>
-</div>
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-box">
+                <div class="search-icon">🔍</div>
+                <input type="text" id="searchInput" placeholder="ابحث عن أي شيء... مثل: نايتنجيل، مهارات التقييم، نظرية البيئة، التعليم المستمر..." autocomplete="off">
+                <button id="clearSearch" class="clear-btn" style="display: none;">✖</button>
+            </div>
+            <div class="search-stats" id="searchStats"></div>
+        </section>
 
-<script src="data.js"></script>
-<script>
-function searchTerm(){
-  const term=document.getElementById('searchInput').value.trim().toLowerCase();
-  const resultDiv=document.getElementById('result');
-  let found=false;
-  resultDiv.innerHTML="";
+        <!-- Results Section -->
+        <main class="results-container" id="resultsContainer">
+            <div class="welcome-message">
+                <div class="welcome-icon">📖</div>
+                <h3>مرحباً بك في قاعدة المعرفة التمريضية</h3>
+                <p>استخدم مربع البحث أعلاه للبحث في محتوى الفصل الأول.<br>
+                يمكنك البحث عن: مصطلحات، مفاهيم، نظريات، أسئلة، أو أي كلمة تريدها.</p>
+                <div class="suggestions">
+                    <span>💡 اقتراحات للبحث:</span>
+                    <button class="suggestion-btn">نايتنجيل</button>
+                    <button class="suggestion-btn">نظرية البيئة</button>
+                    <button class="suggestion-btn">المهارات التمريضية</button>
+                    <button class="suggestion-btn">التعليم المستمر</button>
+                    <button class="suggestion-btn">ما هي الممارسة المبنية على الدليل؟</button>
+                </div>
+            </div>
+        </main>
 
-  for(const ch in data.chapters){
-    const chapter=data.chapters[ch];
+        <!-- Footer -->
+        <footer class="footer">
+            <p>📘 قاعدة المعرفة التمريضية | تعتمد على الملخصات العلمية | قابل للتوسع بإضافة فصول أخرى</p>
+        </footer>
+    </div>
 
-    // بحث في المصطلحات
-    for(const key in chapter.glossary){
-      const g=chapter.glossary[key];
-      if(key.toLowerCase()===term || g.formal_explanation.toLowerCase().includes(term) || g.casual_explanation.toLowerCase().includes(term)){
-        resultDiv.innerHTML+=`<h3>الكلمة: ${key}</h3>
-        <strong>الترجمة:</strong> ${g.translation_ar}<br>
-        <strong>النطق:</strong> ${g.pronunciation}<br>
-        <strong>شرح رسمي:</strong> ${g.formal_explanation}<br>
-        <strong>شرح عامية:</strong> ${g.casual_explanation}<br>
-        <div class="example"><strong>مثال:</strong> ${g.example}</div>`;
-        found=true;
-      }
-    }
-
-    // بحث في الأسئلة
-    chapter.questions.forEach(q=>{
-      if(q.question.toLowerCase().includes(term)){
-        resultDiv.innerHTML+=`<h3>سؤال:</h3>${q.question}<br><strong>الجواب:</strong>${q.answer}<br>`;
-        found=true;
-      }
-    });
-
-    // بحث في تفاصيل الفصل
-    chapter.details.forEach(d=>{
-      if(d.point.toLowerCase().includes(term) || d.formal.toLowerCase().includes(term) || d.casual.toLowerCase().includes(term)){
-        resultDiv.innerHTML+=`<div class="point">
-        <strong>${d.point}</strong><br>
-        شرح رسمي: ${d.formal}<br>
-        شرح عامية: ${d.casual}
-        </div>`;
-        found=true;
-      }
-    });
-  }
-
-  if(!found){resultDiv.innerHTML="عذرًا، لم يتم العثور على المحتوى المطلوب.";}
-}
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
